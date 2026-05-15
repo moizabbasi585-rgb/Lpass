@@ -6,7 +6,7 @@
   <title>L-Pass Driving School Liverpool | Pass First Time</title>
   <meta name="description" content="Liverpool's top-rated driving school. Manual & automatic lessons, intensive courses, and a 94% first-time pass rate. Book online instantly." />
 
-  <!-- ── Emoji Favicon ──────────────────────────────────────────────────── -->
+  <!-- ── Car Emoji Favicon ───────────────────────────────────────────────── -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='18' fill='%231C1C1E'/><text y='.9em' font-size='72' x='50%' dominant-baseline='auto' text-anchor='middle'>🚗</text></svg>" />
 
   <!-- ── Google Fonts ───────────────────────────────────────────────────── -->
@@ -47,27 +47,43 @@
     };
   </script>
 
-  <!-- ── Cal.com embed script ───────────────────────────────────────────── -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
+  <!--  CAL.COM — Single 'lpass' namespace with full event slugs           -->
+  <!-- ═══════════════════════════════════════════════════════════════════ -->
   <script>
-    (function(C, A, L) {
-      let p = function(a, ar) { a.q.push(ar); };
+    (function (C, A, L) {
+      let p = function (a, ar) { a.q.push(ar); };
       let d = C.document;
-      C.Cal = C.Cal || function() { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function() { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string") { cal.ns[namespace] = api; p(api, ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); };
+      C.Cal = C.Cal || function () {
+        let cal = C.Cal; let ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {}; cal.q = cal.q || [];
+          d.head.appendChild(d.createElement("script")).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          const api = function () { p(api, arguments); };
+          const namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === "string") {
+            cal.ns[namespace] = api; p(api, ar); p(cal, ["initNamespace", namespace]);
+          } else p(cal, ar);
+          return;
+        }
+        p(cal, ar);
+      };
     })(window, "https://app.cal.com/embed/embed.js", "init");
 
-    Cal("init", { origin: "https://app.cal.com" });
+    /* ── Single namespace: lpass ── */
+    Cal("init", "lpass", { origin: "https://app.cal.com" });
 
-    // Inline widget for booking section
-    Cal("init", "free-consultation", { origin: "https://app.cal.com" });
-
-    // Popup configs for each package
-    Cal("init", "standard-lesson",  { origin: "https://app.cal.com" });
-    Cal("init", "block-booking",    { origin: "https://app.cal.com" });
-    Cal("init", "gold-success-kit", { origin: "https://app.cal.com" });
+    /* ── Apply dark theme + yellow brand to the namespace ── */
+    Cal.ns.lpass("ui", {
+      theme: "dark",
+      styles: { branding: { brandColor: "#FFD60A" } },
+      hideEventTypeDetails: false,
+    });
   </script>
-
-  <!-- ── Calendly popup styles (kept as fallback) ──────────────────────── -->
-  <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet" />
 
   <style>
     /* ── Base ─────────────────────────────────────────────────────────── */
@@ -234,8 +250,10 @@
 <!--  FLOATING CONTACT BUTTONS                                               -->
 <!-- ═══════════════════════════════════════════════════════════════════════ -->
 <div class="float-btn-wrap" aria-label="Quick contact">
-  <!-- WhatsApp -->
-  <a href="https://wa.me/92432132764" target="_blank" rel="noopener noreferrer"
+
+  <!-- WhatsApp — pulsing green -->
+  <a href="https://wa.me/92432132764"
+     target="_blank" rel="noopener noreferrer"
      class="float-btn float-btn-wa" aria-label="Chat on WhatsApp">
     <span class="float-label">WhatsApp Us</span>
     <svg width="26" height="26" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
@@ -243,7 +261,7 @@
     </svg>
   </a>
 
-  <!-- Phone -->
+  <!-- Phone — yellow -->
   <a href="tel:+92432132764"
      class="float-btn float-btn-ph" aria-label="Call us">
     <span class="float-label">Call Us Now</span>
@@ -251,6 +269,7 @@
       <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/>
     </svg>
   </a>
+
 </div>
 
 
@@ -275,9 +294,10 @@
       <a href="#contact"      class="hover:text-yellow transition-colors">Contact</a>
     </nav>
 
-    <!-- Desktop CTA — Cal.com popup -->
+    <!-- Desktop CTA -->
     <button
-      data-cal-link="standard-lesson"
+      data-cal-namespace="lpass"
+      data-cal-link="moiz-abbasi-mywkdj/standard-lesson"
       data-cal-config='{"theme":"dark","styles":{"branding":{"brandColor":"#FFD60A"}}}'
       class="hidden md:inline-flex items-center gap-2 bg-yellow text-charcoal font-bold text-sm px-5 py-2.5 rounded-lg uppercase tracking-wide hover:bg-yellow-dark transition-colors glow-yellow-sm"
     >
@@ -301,7 +321,8 @@
       <a href="#testimonials" class="hover:text-yellow transition-colors" onclick="closeMobile()">Reviews</a>
       <a href="#contact"      class="hover:text-yellow transition-colors" onclick="closeMobile()">Contact / Get a Quote</a>
       <button
-        data-cal-link="standard-lesson"
+        data-cal-namespace="lpass"
+        data-cal-link="moiz-abbasi-mywkdj/standard-lesson"
         data-cal-config='{"theme":"dark","styles":{"branding":{"brandColor":"#FFD60A"}}}'
         onclick="closeMobile()"
         class="w-full bg-yellow text-charcoal font-bold py-3 rounded-lg uppercase tracking-wide text-sm"
@@ -376,7 +397,8 @@
           See real-time lesson availability and book your first session in under 60 seconds. No phone calls. No waiting.
         </p>
         <button
-          data-cal-link="standard-lesson"
+          data-cal-namespace="lpass"
+          data-cal-link="moiz-abbasi-mywkdj/standard-lesson"
           data-cal-config='{"theme":"dark","styles":{"branding":{"brandColor":"#FFD60A"}}}'
           class="w-full bg-yellow text-charcoal font-bold text-lg py-4 rounded-xl uppercase tracking-wide hover:bg-yellow-dark hover:-translate-y-0.5 transition-all glow-yellow-sm mb-4"
         >📅 Book Your First Lesson</button>
@@ -400,7 +422,7 @@
 
 
 <!-- ═══════════════════════════════════════════════════════════════════════ -->
-<!--  BOOKING — Cal.com inline widget                                        -->
+<!--  BOOKING — Cal.com inline widget (lpass namespace)                      -->
 <!-- ═══════════════════════════════════════════════════════════════════════ -->
 <section id="booking" class="py-24 px-5 relative">
   <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-yellow/5 rounded-full blur-3xl pointer-events-none"></div>
@@ -413,7 +435,7 @@
       Live availability. Book instantly. Lessons 7 days a week across all Liverpool postcodes.
     </p>
 
-    <!-- Cal.com inline widget -->
+    <!-- Cal.com inline widget — injected by JS below -->
     <div class="bg-charcoal-2 border border-yellow/15 rounded-2xl overflow-hidden reveal glow-yellow cal-inline-wrap"
          id="cal-inline-container">
     </div>
@@ -443,7 +465,7 @@
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-      <!-- Single Lesson → /standard-lesson -->
+      <!-- Single Lesson -->
       <div class="price-card bg-charcoal-2 border border-white/10 rounded-2xl p-8 hover:border-yellow/40 reveal">
         <p class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-4">Single Lesson</p>
         <div class="flex items-start gap-1 mb-2">
@@ -458,13 +480,14 @@
           <li class="flex items-center gap-3 text-gray-300 text-sm"><span class="tick"></span>Door-to-door pickup</li>
         </ul>
         <button
-          data-cal-link="standard-lesson"
+          data-cal-namespace="lpass"
+          data-cal-link="moiz-abbasi-mywkdj/standard-lesson"
           data-cal-config='{"theme":"dark","styles":{"branding":{"brandColor":"#FFD60A"}}}'
           class="w-full border border-yellow/40 text-yellow font-bold py-3.5 rounded-xl uppercase tracking-wide text-sm hover:bg-yellow hover:text-charcoal transition-all"
         >Book Now</button>
       </div>
 
-      <!-- Block of 10 → /block-booking -->
+      <!-- Block of 10 — Best Value -->
       <div class="price-card relative bg-charcoal border-2 border-yellow rounded-2xl p-8 glow-yellow reveal reveal-delay-1">
         <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-yellow text-charcoal text-xs font-black uppercase px-5 py-1.5 rounded-full tracking-wide whitespace-nowrap">
           ⭐ Best Value
@@ -483,13 +506,14 @@
           <li class="flex items-center gap-3 text-gray-200 text-sm"><span class="tick"></span>Flexible scheduling</li>
         </ul>
         <button
-          data-cal-link="block-booking"
+          data-cal-namespace="lpass"
+          data-cal-link="moiz-abbasi-mywkdj/block-booking"
           data-cal-config='{"theme":"dark","styles":{"branding":{"brandColor":"#FFD60A"}}}'
           class="w-full bg-yellow text-charcoal font-bold py-3.5 rounded-xl uppercase tracking-wide text-sm hover:bg-yellow-dark transition-all glow-yellow-sm"
         >Book Now</button>
       </div>
 
-      <!-- Intensive → /gold-success-kit -->
+      <!-- Intensive Course -->
       <div class="price-card bg-charcoal-2 border border-white/10 rounded-2xl p-8 hover:border-yellow/40 reveal reveal-delay-2">
         <p class="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-4">Intensive Course</p>
         <div class="flex items-start gap-1 mb-2">
@@ -504,7 +528,8 @@
           <li class="flex items-center gap-3 text-gray-300 text-sm"><span class="tick"></span>Test day support</li>
         </ul>
         <button
-          data-cal-link="gold-success-kit"
+          data-cal-namespace="lpass"
+          data-cal-link="moiz-abbasi-mywkdj/gold-success-kit"
           data-cal-config='{"theme":"dark","styles":{"branding":{"brandColor":"#FFD60A"}}}'
           class="w-full border border-yellow/40 text-yellow font-bold py-3.5 rounded-xl uppercase tracking-wide text-sm hover:bg-yellow hover:text-charcoal transition-all"
         >Book Now</button>
@@ -594,10 +619,9 @@
 
     <!-- Right: Theory Kit lead capture form -->
     <!--
-      WEB3FORMS SETUP:
+      WEB3FORMS:
       Access Key : 7e743af6-1b48-462d-a364-5c1f58032bf5
-      On success  : redirect sends user directly to the hosted PDF
-      Host your PDF at: https://lpass.vercel.app/success-kit.pdf
+      On success  : JS redirects to PDF
     -->
     <div class="bg-charcoal-2 border border-yellow/20 rounded-2xl p-10 glow-yellow reveal reveal-delay-2">
       <div class="text-6xl mb-5 text-center">📖</div>
@@ -606,22 +630,12 @@
         Enter your details below to get instant access to our complete theory preparation pack — sent straight to you.
       </p>
 
-      <form id="theory-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-4" novalidate>
-        <!-- Web3Forms key -->
-        <input type="hidden" name="access_key"   value="7e743af6-1b48-462d-a364-5c1f58032bf5" />
-        <!-- ✅ FIXED: Full absolute URL redirect to hosted PDF -->
-        <input type="hidden" name="redirect"      value="https://lpass.vercel.app/success-kit.pdf" />
-        <input type="hidden" name="subject"       value="New Theory Kit Request — L-Pass Driving School" />
-        <!-- Honeypot anti-spam -->
-        <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
-
+      <form id="theory-form" class="space-y-4" novalidate>
         <div>
           <label class="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Full Name *</label>
           <input type="text" name="name" placeholder="Your full name" required />
         </div>
-
         <div>
-          <!-- ✅ FIXED: name="phone" attribute present -->
           <label class="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Phone Number *</label>
           <input type="tel" name="phone" placeholder="07700 000000" required />
         </div>
@@ -709,7 +723,8 @@
         <div class="font-display font-black uppercase text-charcoal text-4xl mb-2">Join Them</div>
         <p class="text-charcoal/70 text-sm mb-6">2,400+ Liverpool drivers passed with L-Pass.</p>
         <button
-          data-cal-link="block-booking"
+          data-cal-namespace="lpass"
+          data-cal-link="moiz-abbasi-mywkdj/block-booking"
           data-cal-config='{"theme":"dark","styles":{"branding":{"brandColor":"#FFD60A"}}}'
           class="bg-charcoal text-yellow font-bold text-sm py-3.5 rounded-xl uppercase tracking-wide hover:bg-charcoal-2 transition-colors"
         >📅 Book Your Lesson</button>
@@ -758,7 +773,6 @@
             <span class="text-gray-400 text-sm">All Liverpool &amp; Merseyside postcodes</span>
           </div>
         </div>
-        <!-- WhatsApp quick link -->
         <a href="https://wa.me/92432132764" target="_blank" rel="noopener noreferrer"
            class="inline-flex items-center gap-3 bg-[#25D366]/10 border border-[#25D366]/30 text-[#25D366] text-sm font-semibold px-5 py-3 rounded-xl hover:bg-[#25D366]/20 transition-colors">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -769,21 +783,12 @@
 
     <!-- Right: contact form -->
     <div class="bg-charcoal-2 border border-white/10 rounded-2xl p-8 reveal reveal-delay-1">
-      <form id="lead-form" action="https://api.web3forms.com/submit" method="POST" class="space-y-5" novalidate>
-        <!-- Web3Forms key -->
-        <input type="hidden" name="access_key" value="7e743af6-1b48-462d-a364-5c1f58032bf5" />
-        <!-- No redirect here — JS handles success message -->
-        <input type="hidden" name="redirect"    value="" />
-        <input type="hidden" name="subject"     value="New Lead — L-Pass Driving School Website" />
-        <!-- Honeypot anti-spam -->
-        <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
-
+      <form id="lead-form" class="space-y-5" novalidate>
         <div>
           <label class="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Full Name *</label>
           <input type="text" name="name" placeholder="Your full name" required />
         </div>
         <div>
-          <!-- ✅ name="phone" confirmed -->
           <label class="block text-xs font-semibold uppercase tracking-widest text-gray-400 mb-2">Phone Number *</label>
           <input type="tel" name="phone" placeholder="07700 000000" required />
         </div>
@@ -848,8 +853,8 @@
       <div>
         <h4 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-5">Contact Us</h4>
         <ul class="space-y-3 text-sm text-gray-500">
-          <li>📞 <a href="tel:+92432132764"              class="hover:text-yellow transition-colors">+92 432 132 764</a></li>
-          <li>💬 <a href="https://wa.me/92432132764"     class="hover:text-yellow transition-colors" target="_blank" rel="noopener">WhatsApp Us</a></li>
+          <li>📞 <a href="tel:+92432132764"               class="hover:text-yellow transition-colors">+92 432 132 764</a></li>
+          <li>💬 <a href="https://wa.me/92432132764"      class="hover:text-yellow transition-colors" target="_blank" rel="noopener">WhatsApp Us</a></li>
           <li>✉️ <a href="mailto:hello@lpassdriving.co.uk" class="hover:text-yellow transition-colors">hello@lpassdriving.co.uk</a></li>
           <li>📍 Serving all Liverpool &amp; Merseyside</li>
           <li>🕐 Mon–Sat, 8am–7pm</li>
@@ -874,33 +879,37 @@
 <!--  SCRIPTS                                                                -->
 <!-- ═══════════════════════════════════════════════════════════════════════ -->
 
-<!-- Cal.com UI (loads the popup/inline UI) -->
 <script>
-  window.addEventListener('load', function () {
-    // Inline widget in #booking section
-    Cal.ns["free-consultation"]("inline", {
-      elementOrSelector: "#cal-inline-container",
-      calLink: "free-consultation",
-      config: {
-        theme: "dark",
-        styles: { branding: { brandColor: "#FFD60A" } }
-      }
-    });
+/* ═══════════════════════════════════════════════════════════════════════
+   CAL.COM — Inline widget + popup buttons (all via 'lpass' namespace)
+═══════════════════════════════════════════════════════════════════════ */
+window.addEventListener('load', function () {
 
-    // Wire up all data-cal-link buttons dynamically
-    document.querySelectorAll("[data-cal-link]").forEach(function(btn) {
-      var link   = btn.getAttribute("data-cal-link");
-      var config = {};
-      try { config = JSON.parse(btn.getAttribute("data-cal-config") || "{}"); } catch(e) {}
-      btn.addEventListener("click", function() {
-        Cal(link, { config: config });
-      });
+  /* ── Inline booking widget in #booking section ── */
+  Cal.ns.lpass("inline", {
+    elementOrSelector: "#cal-inline-container",
+    calLink: "moiz-abbasi-mywkdj/free-consultation",
+    config: {
+      theme: "dark",
+      styles: { branding: { brandColor: "#FFD60A" } }
+    }
+  });
+
+  /* ── Wire popup buttons: data-cal-namespace="lpass" ── */
+  document.querySelectorAll("[data-cal-namespace='lpass']").forEach(function (btn) {
+    var link   = btn.getAttribute("data-cal-link");
+    var config = {};
+    try { config = JSON.parse(btn.getAttribute("data-cal-config") || "{}"); } catch (e) {}
+    btn.addEventListener("click", function () {
+      Cal.ns.lpass("modal", { calLink: link, config: config });
     });
   });
+
+});
 </script>
 
 <script>
-/* ── Mobile menu ─────────────────────────────────────────────────────── */
+/* ── Mobile menu ──────────────────────────────────────────────────── */
 const hamburger  = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobile-menu');
 const iconOpen   = document.getElementById('icon-open');
@@ -919,7 +928,7 @@ function closeMobile() {
   iconClose.classList.add('hidden');
 }
 
-/* ── Scroll reveal ───────────────────────────────────────────────────── */
+/* ── Scroll reveal ────────────────────────────────────────────────── */
 const revealEls = document.querySelectorAll('.reveal');
 const observer  = new IntersectionObserver((entries) => {
   entries.forEach(e => {
@@ -928,13 +937,15 @@ const observer  = new IntersectionObserver((entries) => {
 }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 revealEls.forEach(el => observer.observe(el));
 
-/* ── Sticky nav shadow ───────────────────────────────────────────────── */
+/* ── Sticky nav shadow ────────────────────────────────────────────── */
 window.addEventListener('scroll', () => {
   document.querySelector('header').style.boxShadow =
     window.scrollY > 20 ? '0 4px 40px rgba(0,0,0,0.5)' : 'none';
 });
 
-/* ── Contact form (Web3Forms, JS-handled) ────────────────────────────── */
+/* ── Contact form (Web3Forms, JS-handled, no page reload) ─────────── */
+const WEB3_KEY  = '7e743af6-1b48-462d-a364-5c1f58032bf5';
+
 const form       = document.getElementById('lead-form');
 const submitBtn  = document.getElementById('submit-btn');
 const successMsg = document.getElementById('form-success');
@@ -951,11 +962,22 @@ form.addEventListener('submit', async (e) => {
   }
   submitBtn.textContent = 'Sending…';
   submitBtn.disabled = true;
+
+  const payload = {
+    access_key:  WEB3_KEY,
+    subject:     'New Lead — L-Pass Driving School Website',
+    name:        name,
+    email:       email,
+    phone:       phone,
+    lesson_type: form.querySelector('[name="lesson_type"]').value,
+    message:     form.querySelector('[name="message"]').value,
+  };
+
   try {
     const res  = await fetch('https://api.web3forms.com/submit', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body:    JSON.stringify(Object.fromEntries(new FormData(form))),
+      body:    JSON.stringify(payload),
     });
     const data = await res.json();
     if (data.success) {
@@ -975,7 +997,7 @@ form.addEventListener('submit', async (e) => {
   }
 });
 
-/* ── Theory Kit form (Web3Forms, server-side redirect to PDF) ────────── */
+/* ── Theory Kit form (Web3Forms → redirect to PDF) ────────────────── */
 const theoryForm      = document.getElementById('theory-form');
 const theorySubmitBtn = document.getElementById('theory-submit-btn');
 const theorySuccess   = document.getElementById('theory-success');
@@ -992,12 +1014,14 @@ theoryForm.addEventListener('submit', async (e) => {
   theorySubmitBtn.textContent = 'Sending…';
   theorySubmitBtn.disabled = true;
 
-  try {
-    const formData = new FormData(theoryForm);
-    // Remove redirect from JSON payload — we'll handle it manually
-    const payload  = Object.fromEntries(formData);
-    delete payload.redirect;
+  const payload = {
+    access_key: WEB3_KEY,
+    subject:    'New Theory Kit Request — L-Pass Driving School',
+    name:       name,
+    phone:      phone,
+  };
 
+  try {
     const res  = await fetch('https://api.web3forms.com/submit', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
@@ -1008,7 +1032,7 @@ theoryForm.addEventListener('submit', async (e) => {
       theorySuccess.style.display = 'block';
       theoryError.style.display   = 'none';
       theoryForm.reset();
-      // ✅ Redirect user immediately to the PDF
+      /* ✅ Redirect to hosted PDF after short delay */
       setTimeout(() => {
         window.location.href = 'https://lpass.vercel.app/success-kit.pdf';
       }, 800);
